@@ -45,12 +45,14 @@ book2.save()
 book3.save()
 book4.save()
 }
-
+//////////**handlear function */
 // seedDataCollection()npm 
 ///localhost:3001/
 server.get('/',handlearServer)
 server.get('/books',handlearBookServer)
-
+server.post('/books',addHAndlear)
+// server.delete('')
+///////////////////function
 function handlearServer(req,res){
     res.send('good start')
 }
@@ -70,6 +72,30 @@ console.log('welcome im mongoose handler')
  })
     
 }
+//////////add function
+
+async function addHAndlear(req, res) {
+   
+   
+    let { title, description, email } = req.body;
+    
+
+    await kittenModel.create({title,description,email})
+    
+
+    kittenModel.find({ email }, function (err, ownerData) {
+        if (err) {
+            console.log('error in getting the data')
+        } else {
+            console.log(ownerData);
+            res.send(ownerData)
+        }
+    })
+
+
+
+}
+////////////
 
 server.listen(PORT,()=>{
     console.log(`This port ${PORT} work perfectly`);

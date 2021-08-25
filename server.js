@@ -5,7 +5,7 @@ const cors=require('cors');
 const axios=require('axios');
 require('dotenv').config();
 const server=express();
-
+server.use(express.json())
 server.use (cors());
 const PORT=process.env.PORT
 const bookModul=require('./Modules/bookTry')
@@ -50,12 +50,15 @@ book4.save()
 ///localhost:3001/
 server.get('/',handlearServer)
 server.get('/books',handlearBookServer)
-server.post('/books',addHAndlear)
+// server.post('/books',addHAndlear)
+// server.post('/bookObj',bookObjHandelar)
+// server.delete('/deletObj/:idBook',deletObjHandelar)
 // server.delete('')
 ///////////////////function
 function handlearServer(req,res){
     res.send('good start')
 }
+
 //localhost:3001/books?email=
 function handlearBookServer(req,res){
 console.log('welcome im mongoose handler')
@@ -73,29 +76,57 @@ console.log('welcome im mongoose handler')
     
 }
 //////////add function
+// async function bookObjHandelar(req,res){
+//     console.log("test body","body test");
+//     console.log('add function');
+//     let title=req.body.params.title
+//        let description= req.body.params.description
+//        let email= req.body.params.email
+//     // let email=req.body.email
+//     console.log(title,description,email);
+//     //   let {title,description,email}=req.body
+// console.log(req.body.params.email);
+// await bookModul.create({title,description,email})
 
-async function addHAndlear(req, res) {
-   
-   
-    let { title, description, email } = req.body;
-    
+// bookModul.find({email},function(err,saveDat){
+//     if(err) {
+//         console.log('error in getting the data')
+//     } else {
+//         console.log(saveDat);
+//         res.send(saveDat);}
+//  })
 
-    await kittenModel.create({title,description,email})
-    
-
-    kittenModel.find({ email }, function (err, ownerData) {
-        if (err) {
-            console.log('error in getting the data')
-        } else {
-            console.log(ownerData);
-            res.send(ownerData)
-        }
-    })
-
-
-
-}
+  
+// }
 ////////////
+
+///////////////////remove function 
+
+// async function deletObjHandelar(req,res){ 
+//     console.log('delete handelare');
+//     ///***localhost:3001/deletObj/catId)
+//     // let userEmail=req.query.emailUser
+//     let idBook=req.query.idBook
+// console.log(req.query);
+//     bookModul.deleteOne({_id:idBook},function(err,saveDat){
+//         if(err) {
+//             console.log('error in getting the data')
+//         } else {
+//             console.log(saveDat);
+//             bookModul.find({email},function(err,saveDat){
+//                 if(err) {
+//                     console.log('error in getting the data')
+//                 } else {
+//                     console.log(saveDat);
+//                     res.send(saveDat);}
+            
+//              })
+            
+//             res.send(saveDat);}
+    
+//      })
+// }
+///////////////////
 
 server.listen(PORT,()=>{
     console.log(`This port ${PORT} work perfectly`);

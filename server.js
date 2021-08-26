@@ -46,7 +46,7 @@ book3.save()
 book4.save()
 }
 //////////**handlear function */
-// seedDataCollection()npm 
+seedDataCollection() 
 ///localhost:3001/
 server.get('/',handlearServer)
 server.get('/books',handlearBookServer)

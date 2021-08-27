@@ -53,7 +53,7 @@ server.get('/books',handlearBookServer)
 // server.post('/books',addHAndlear)
 server.post('/bookObj',bookObjHandelar)
 server.delete('/deletObj/:idBook',deletObjHandelar)
-// server.put('/updateBook/:idBook',updateHandelar)
+server.put('/updateBook/:idBook',updateHandelar)
 ///////////////////function
 function handlearServer(req,res){
     res.send('good start')
@@ -132,28 +132,28 @@ bookModul.remove({_id:idBook},function(err,saveDat1){
      })
 }
 ///////////////////
-// function updateHandelar(req,res){
-//     let {title,description,email}=req.body
-//     let idBook=req.query.idBook
+function updateHandelar(req,res){
+    let {title,description,email}=req.body
+    let idBook=req.params.idBook
 
-//     bookModul.deleteOne({_id:idBook},function(err,bookInfo){
-//         bookInfo[0].title=title,
-//         bookInfo[0].description=description,
-//         bookInfo[0].email=email
-//         bookInfo[0].save()
-//         ////**we have to put [0]becuse we save info in array */
-//         .then(()=>{ bookModul.find({email},function(err,saveDat){
-//                             if(err) {
-//                                 console.log('error in getting the data')
-//                             } else {
-//                                 console.log(saveDat);
-//                                 res.send(saveDat);}
+    bookModul.findOne({_id:idBook},function(err,bookInfo){
+        bookInfo.title=title,
+        bookInfo.description=description,
+        bookInfo.email=email
+        bookInfo.save()
+        ////**we have to put [0]becuse we save info in array in case we use find */
+        .then(()=>{ bookModul.find({email},function(err,saveDat){
+                            if(err) {
+                                console.log('error in getting the data')
+                            } else {
+                                console.log(saveDat);
+                                res.send(saveDat);}
                         
-//                          })
+                         })
 
-//         })
-//     })
-// }
+        })
+    })
+}
 
 server.listen(PORT,()=>{
     console.log(`This port ${PORT} work perfectly`);
